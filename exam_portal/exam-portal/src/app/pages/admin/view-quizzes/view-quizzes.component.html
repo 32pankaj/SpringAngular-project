@@ -1,0 +1,63 @@
+<mat-card class="mt10" *ngFor="let q of quizzes">
+  <mat-card-header>
+    <div mat-card-avatar class="example-header-image"></div>
+    <mat-card-title>
+      {{ q.title }}
+    </mat-card-title>
+    <mat-card-subtitle>{{ q.category.title }}</mat-card-subtitle>
+  </mat-card-header>
+  <mat-card-content>
+    <p>{{ q.description }}</p>
+    <p>Maximum marks:{{ q.maxMarks }}</p>
+    <p>Number of Question:{{ q.numberOfQuestion }}</p>
+  </mat-card-content>
+  <mat-card-actions>
+    <button
+      mat-raised-button
+      color="accent"
+      [routerLink]="'/admin/update-quiz/' + q.qId"
+      class="mr10"
+    >
+      Update
+    </button>
+    <button
+      mat-raised-button
+      color="accent"
+      [routerLink]="'/admin/view-questions/' + q.qId + '/' + q.title"
+    >
+      View Questions
+    </button>
+    <!-- <button mat-raised-button color="accent">
+      Maximum Marks:{{ q.maxMarks }}
+    </button>F
+
+    <button mat-raised-button color="accent">
+      No of Question:{{ q.numberOfQuestion }}
+    </button> -->
+
+    <div class="example-spacer-right">
+      <mat-slide-toggle
+        name="active"
+        class="example-margin"
+        [(ngModel)]="q.active"
+        (ngModelChange)="updStatus(q)"
+      >
+        Pulish status
+      </mat-slide-toggle>
+    </div>
+    <button
+      mat-icon-button
+      matTooltip="Delete quize"
+      color="accent"
+      (click)="delQuiz(q.qId)"
+    >
+      <mat-icon>delete</mat-icon>
+      <h4 color="primary"></h4>
+    </button>
+  </mat-card-actions>
+</mat-card>
+<div class="container text-center mt20">
+  <button mat-raised-button color="accent" routerLink="/admin/add-quiz/">
+    Add Quiz
+  </button>
+</div>

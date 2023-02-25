@@ -1,0 +1,85 @@
+package com.inn.cafe.JWT;
+
+import java.io.IOException;
+
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
+import org.springframework.stereotype.Component;
+import org.springframework.web.filter.OncePerRequestFilter;
+
+import io.jsonwebtoken.Claims;
+
+import javax.servlet.FilterChain;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+@Slf4j
+@Component
+public class JwtFilter extends OncePerRequestFilter {
+
+    @Autowired
+    CustomerUserDetailsService service;
+    Claims claims = null;
+    @Autowired
+    private JwtUtil jwtUtil;
+    private String userName = null;
+
+    @Override
+    protected void doFilterInternal(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, FilterChain filterChain)
+            throws ServletException, IOException {
+        log.info(" inside filete up -----");
+        log.info(" ___________ 1");
+        log.info(" inside filete up -----"+httpServletRequest.getServletPath());
+        if (httpServletRequest.getServletPath().matches("/user/login|/user/forgetPassword")) {
+            filterChain.doFilter(httpServletRequest, httpServletResponse);
+            log.info(" inside filete up 1 -----");
+            log.info(" ___________ 2");
+        } else {
+            String authorizationHeader = httpServletRequest.getHeader("Authorization");
+            String token = null;
+            log.info(" ___________ 3");
+            if (authorizationHeader != null && authorizationHeader.startsWith("Bearer ")) {
+                token = authorizationHeader.substring(7);
+                userName = jwtUtil.extractUserName(token);
+                claims = jwtUtil.extractAllClaims(token);
+                log.info(" ___________ 4");
+            }
+            if (userName != null && SecurityContextHolder.getContext().getAuthentication() == null) {
+                UserDetails userDetails = service.loadUserByUsername(userName);
+                log.info(" ___________ 5");
+                if (jwtUtil.validateToken(token, userDetails)) {
+                    log.info(" ___________ 6");
+                    UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken =
+                            new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
+                    usernamePasswordAuthenticationToken.setDetails(
+                            new WebAuthenticationDetailsSource().buildDetails(httpServletRequest));
+                SecurityContextHolder.getContext().setAuthentication(usernamePasswordAuthenticationToken);
+				}
+                log.info(" ___________ 7");
+            }
+            log.info(" inside filete -----");
+            filterChain.doFilter(httpServletRequest,httpServletResponse);
+            log.info(" inside filete  down-----");
+            log.info(" ___________ 8");
+        }
+
+    }
+	public boolean isAdmin(){
+        log.info(" ___________ 9");
+		return  "admin".equalsIgnoreCase((String) claims.get("admin"));
+	}
+
+	public boolean isUser(){
+        log.info(" ___________ 10");
+		return  "user".equalsIgnoreCase((String) claims.get("user"));
+	}
+	public String getCurrentUser(){
+        log.info(" ___________ 11");
+		return userName;
+	}
+}

@@ -1,0 +1,34 @@
+<div class="bootstrap-wraper">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <mat-card class="mt20">
+          <mat-card-header>
+            <!-- heading -->
+            <mat-card-title>
+              Read the instruction of this page carefully
+            </mat-card-title>
+            <mat-card-subtitle> one step more to go </mat-card-subtitle>
+          </mat-card-header>
+
+          <mat-card-content>
+            <!-- quiz content -->
+            <h1>{{ quiz.title }}</h1>
+            <p>{{ quiz.description }}</p>
+            <mat-divider></mat-divider>
+            <br />
+            <h1>Important Instruction</h1>
+            <ul>
+              <li>This quiz is only for practice purpose</li>
+              <li>
+                <!-- let te time assume 20 minutes  -->
+                You have to complete quiz with in
+                {{ quiz.numberOfQuestion * 2 }} minutes
+              </li>
+            </ul>
+          </mat-card-content>
+        </mat-card>
+      </div>
+    </div>
+  </div>
+</div>

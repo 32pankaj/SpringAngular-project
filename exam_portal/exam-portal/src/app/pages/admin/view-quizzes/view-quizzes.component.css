@@ -1,0 +1,19 @@
+.example-card {
+  max-width: 400px;
+}
+
+.example-header-image {
+  background-image: url('../../../../assets/exam.jpg');
+  background-size: cover;
+}
+.example-spacer-left {
+  width: 50%;
+ }
+ .example-spacer-right {
+   width: 50%;
+   text-align: right;
+
+  }
+  .mat-back{
+    background-color: #1ff530;
+  }

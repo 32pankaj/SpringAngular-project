@@ -1,0 +1,74 @@
+<mat-card>
+  <mat-list>
+    <div mat-subheader>All Category</div>
+    <!-- <mat-list-item *ngFor="let c of categories">
+
+      <mat-icon mat-list-icon matListItemIcon>category</mat-icon>
+
+      <div mat-line>{{c.title}}</div>
+      <div cla></div>
+      <div mat-line>{{c.description}} <button class="text-align:right" (click)="delMr(this.c)"  mat-raised-button color="accent">Delete</button></div>
+
+
+
+      <mat-divider></mat-divider>
+    </mat-list-item> -->
+    <!-- <mat-list-item *ngFor="let c of categories" >
+      <mat-icon matListItemIcon>category</mat-icon>
+      <div matListItemTitle>{{c.title}} </div>
+      <div matListItemLine>{{c.description }}
+
+        </div>
+
+        <span matListItemLine>Second line. This line will truncate.</span>
+        <span ><mat-icon  class="vertical-align: right;"  matListItemIcon >delete</mat-icon><button class="text-align:right" (click)="delMr(this.c)"  mat-raised-button color="accent">Delete</button>
+        </span>
+        <mat-divider ></mat-divider>
+    </mat-list-item> -->
+
+    <!-- <div mat-dialog-actions>
+
+
+
+</div> -->
+  </mat-list>
+
+  <mat-selection-list   #shoes >
+    <mat-list-option   *ngFor="let c of categories">
+      <mat-icon matListItemIcon>category</mat-icon>
+      <div matListItemTitle>{{ c.title }}</div>
+      <div matListItemLine>{{ c.description }}</div>
+      <span matListItemLine></span>
+      <span>
+
+          <div class="example-spacer-left mb10">
+            <button mat-button color="accent">Add questions</button>
+          </div>
+          <div class="example-spacer-right mb10" >
+            <button mat-icon-button color="accent">
+              <mat-icon>edit</mat-icon>
+            </button>
+            <button mat-icon-button color="accent" (click)="delMr(this.c)" >
+              <mat-icon >delete</mat-icon><h4 color="primary"></h4>
+            </button>
+
+
+        </div>
+        <div class="example-spacer-bottom mb20">
+          <mat-divider ></mat-divider>
+        </div>
+
+
+      </span>
+      <mat-divider></mat-divider>
+    </mat-list-option>
+  </mat-selection-list>
+
+  <p>Options selected: {{ shoes.selectedOptions.selected.length }}</p>
+
+  <div class="container text-center mt20 mb20">
+    <button routerLink="/admin/add-category" mat-raised-button color="accent">
+      Add New Category
+    </button>
+  </div>
+</mat-card>

@@ -1,0 +1,83 @@
+<!-- Mat nav bar
+<mat-toolbar color="accent">
+  <a href="/"
+    mat-icon-button
+    class="example-icon"
+    aria-label="Example icon-button with menu icon"
+  >
+    <mat-icon>menu_book</mat-icon><span class="ml10 mt10 mb10">Exam Portal</span>
+  </a>
+
+  <span class="example-spacer"></span>
+
+  <a href="/login"
+    mat-icon-button
+    class="example-icon favorite-icon"
+    aria-label="Example icon-button with heart icon" color="primary"
+  >
+  <h3>Log In</h3>
+  </a>
+
+  <a href="/signup"
+    mat-icon-button
+    class="example-icon favorite-icon mr20 ml20"
+    aria-label="Example icon-button with heart icon"
+  >
+  <h3>Register</h3>
+  </a>
+
+</mat-toolbar> -->
+
+<mat-toolbar color="accent">
+  <a
+    routerLink="/"
+    mat-icon-button
+    class="example-icon"
+    aria-label="Example icon-button with menu icon"
+  >
+    <mat-icon>menu_book</mat-icon>
+    Exam Portal
+  </a>
+  <!-- Login Link -->
+   {{userActive | json}}
+  <span class="example-spacer"></span>
+  <a
+    *ngIf="!userActive"
+    [routerLink]="'/login'"
+    mat-icon-button
+    class="example-icon favorite-icon"
+    aria-label="Example icon-button with heart icon"
+  >
+    <h3>Log In</h3>
+  </a>
+  <!-- Register link -->
+  <a
+    *ngIf="!userActive"
+    [routerLink]="'/signup'"
+    mat-icon-button
+    class="example-icon favorite-icon mr20 ml20"
+    aria-label="Example icon-button with heart icon"
+  >
+    <h3>Register</h3>
+  </a>
+  <!-- Show User Name -->
+ <a routerLink="/admin/profile"
+
+  *ngIf="userActive"
+  mat-icon-button
+  class="example-icon favorite-icon mr20 ml20"
+  aria-label="Example icon-button with heart icon"
+>
+  <h3>{{userName}}</h3>
+</a>
+  <!-- Log Out Link -->
+  <a
+    (click)="logOut()"
+    *ngIf="userActive"
+    mat-icon-button
+    class="example-icon favorite-icon mr20 ml20"
+    aria-label="Example icon-button with heart icon"
+  >
+    <h3>Log Out</h3>
+  </a>
+</mat-toolbar>
